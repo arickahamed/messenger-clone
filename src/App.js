@@ -5,22 +5,38 @@ import Message from "./Message";
 
 function App() {
   const [input, setInput] = useState("");
-  const [messages, setMessages] = useState(["a", "b", "c"]);
+  const [messages, setMessages] = useState([
+    {
+      username: "Rafan",
+      text: "I am a super power and I like superman as well as motu patlu.",
+    },
+    {
+      username: "Raifa",
+      text: "I am a decent girl and I like Eyaana very much.",
+    },
+  ]);
+  const [username, setUsername] = useState("");
+
+  // useEffect(() => {
+  //   console.log(input);
+  //   console.log(messages);
+  // });
+
   useEffect(() => {
-    console.log(input);
-    console.log(messages);
-  });
+    setUsername(prompt("Please enter your name"));
+  }, []);
 
   const sendMessage = (event) => {
     event.preventDefault();
     //all the logic to send a message here.
-    setMessages([...messages, input]);
+    setMessages([...messages, { username: username, text: input }]);
     setInput("");
   };
 
   return (
     <div className="App">
-      <h1>Hello world!</h1>
+      <h1>Messenger clone by Arick!</h1>
+      <h2>Welcome {username}</h2>
 
       <form>
         <FormControl>
@@ -42,7 +58,7 @@ function App() {
       </form>
 
       {messages.map((msg) => (
-        <Message text={msg}></Message>
+        <Message username={msg.username} text={msg.text}></Message>
       ))}
     </div>
   );
